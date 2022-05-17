@@ -4,14 +4,14 @@ import { Action, Item, ItemState } from "../../types"
 import itemsActions from "./actions"
 
 
-const InitialState : ItemState = {
+const initialState : ItemState = {
     loading : false,
     success : false,
     items : itemsDB
 }
 type Payloads = Item | Item[]
-const itemsReducer = (state : ItemState, action:Action<Payloads>) => {
-
+const itemsReducer = (state : ItemState = initialState, action:Action<Payloads>) => {
+    console.log("State", state, action)
     switch (action.type){
         case "ADD_ITEM":
             return {
@@ -19,16 +19,17 @@ const itemsReducer = (state : ItemState, action:Action<Payloads>) => {
                 items : [...itemsDB, action.payload as Item]
             }
         case "DELETE_ITEM":
+            const newItemList = state.items.filter((item) => item.id !== (action.payload as Item).id)
             return {
                 ...state,
-                items : state.items.filter((item) => item.id === (action.payload as Item).id)
+                items : newItemList
             }
         default : 
             return state
     }
 }
 
-const IndexReducers = () => combineReducers({
+const IndexReducers = combineReducers({
     items : itemsReducer
 })
 

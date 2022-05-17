@@ -1,7 +1,7 @@
 import { Button } from "antd"
 import itemsActions from "../../core/reducers/actions"
 import { useSelector, useDispatch } from "react-redux"
-import { Item as ItemInterface } from "../../types"
+import { Item as ItemInterface, ItemState } from "../../types"
 
 const Item = ({item } : {item : ItemInterface}) => {
     return <>
@@ -12,18 +12,21 @@ const Item = ({item } : {item : ItemInterface}) => {
 }
 const DisplayItems = (props : any) => {
     
-    const items : ItemInterface[] = useSelector(({items} : any) => { console.log("items", items); return (items.items)})
-    console.log("PROPS", items)
+    const items : ItemInterface[] = useSelector(({items} : {items : ItemState}) => items.items )
     const dispatch = useDispatch()
-    return <>{items.map((item) => 
-    <>
+    console.log("items", items)
+    return <>{items && items.map((item,key:number) => 
+    <div key={key}>
         <Item item={item}/>
         <Button danger onClick={ 
-            () => dispatch(itemsActions.delete(item)) 
+            () => {
+                console.log("remove", item.id)
+                dispatch(itemsActions.delete(item)) 
+            }
         }>
             delete
         </Button>
-    </>
+    </div>
     )}</>
 }
 
