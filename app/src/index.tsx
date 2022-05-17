@@ -7,6 +7,8 @@ import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import IndexReducers from './core/reducers'
 import indexSagas from './core/sagas'
+import Router from './core/Router';
+import Header from './components/Header';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
@@ -18,7 +20,7 @@ const store = createStore(
 sagaMiddleware.run(indexSagas)
 root.render(
   <React.StrictMode>
-    <App />
+    <Router />
   </React.StrictMode>
 );
 
