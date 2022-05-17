@@ -10,7 +10,7 @@ const InitialState : ItemState = {
     items : itemsDB
 }
 type Payloads = Item | Item[]
-const ItemReducer = (state : ItemState, action:Action<Payloads>) => {
+const itemsReducer = (state : ItemState, action:Action<Payloads>) => {
 
     switch (action.type){
         case "ADD_ITEM":
@@ -23,9 +23,13 @@ const ItemReducer = (state : ItemState, action:Action<Payloads>) => {
                 ...state,
                 items : state.items.filter((item) => item.id === (action.payload as Item).id)
             }
+        default : 
+            return state
     }
 }
 
-const IndexReducers = () => combineReducers({})
+const IndexReducers = () => combineReducers({
+    items : itemsReducer
+})
 
 export default IndexReducers

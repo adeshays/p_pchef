@@ -5,22 +5,26 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import IndexReducers from './core/reducers'
+import rootReducer from './core/reducers'
 import indexSagas from './core/sagas'
 import Router from './core/Router';
 import Header from './components/Header';
+import { Provider } from 'react-redux';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 const sagaMiddleware = createSagaMiddleware()
 const store = createStore(
-  IndexReducers,
+  rootReducer,
   applyMiddleware(sagaMiddleware)
 )
+
 sagaMiddleware.run(indexSagas)
 root.render(
   <React.StrictMode>
-    <Router />
+    <Provider store={store}>
+      <Router />
+    </Provider>
   </React.StrictMode>
 );
 
