@@ -18,10 +18,10 @@ const AddItem = (props:any) :JSX.Element => {
             dispatch(itemsActions.add({...values, id}))
             formRef.resetFields()
         }}>
-            <FItem name="title"  label="title">
+            <FItem rules={[{ required: true}]} name="title"  label="title">
               <Input />
             </FItem>
-            <FItem name="description" label="description">
+            <FItem rules={[{ required: true}]} name="description" label="description">
               <Input />
             </FItem>
             <FItem >

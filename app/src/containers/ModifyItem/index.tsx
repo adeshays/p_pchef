@@ -21,10 +21,10 @@ const ModifyItem = (props:any) => {
         dispatch(itemsActions.modify({...item, ...values}))
         formRef.resetFields()
     }}>
-        <FItem name="title"  label="title">
+        <FItem rules={[{ required: true}]} name="title"  label="title">
           <Input />
         </FItem>
-        <FItem name="description" label="description">
+        <FItem rules={[{ required: true}]} name="description" label="description">
           <Input />
         </FItem>
         <FItem >
