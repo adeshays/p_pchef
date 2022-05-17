@@ -1,6 +1,6 @@
 import { Item } from "../types";
 
-export const Items : Item[] = [
+export const itemsDB : Item[] = [
     {
         id: "",
         title: "",
