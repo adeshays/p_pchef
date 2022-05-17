@@ -2,6 +2,8 @@ import {Button, Form, Input, } from "antd"
 import { Item } from "../../types"
 import { useDispatch } from "react-redux"
 import itemsActions from "../../core/reducers/actions"
+import { v4 as uuidv4 } from 'uuid'
+
 const FItem = (props:any) => <Form.Item {...props} />
 const AddItem = (props:any) :JSX.Element => {
     const dispatch = useDispatch()
@@ -9,7 +11,8 @@ const AddItem = (props:any) :JSX.Element => {
     <>
         <Form onFinish={(values : Item) => {
             console.log("values", values)
-            dispatch(itemsActions.add(values))
+            const id = uuidv4()
+            dispatch(itemsActions.add({...values, id}))
         }}>
             <FItem name="title"  label="title">
               <Input />
