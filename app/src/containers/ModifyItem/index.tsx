@@ -17,7 +17,6 @@ const ModifyItem = (props:any) => {
     return (   
     <Form form={formRef} initialValues={item} onFinish={(values : Item) => {
         dispatch(itemsActions.modify({...item, ...values}))
-        formRef.resetFields()
     }}>
         <FItem rules={[{ required: true}]} name="title"  label="title">
           <Input />
