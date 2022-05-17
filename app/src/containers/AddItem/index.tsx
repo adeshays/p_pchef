@@ -3,16 +3,20 @@ import { Item } from "../../types"
 import { useDispatch } from "react-redux"
 import itemsActions from "../../core/reducers/actions"
 import { v4 as uuidv4 } from 'uuid'
+import { useForm } from "antd/lib/form/Form"
+import { FItem } from "../../components/FormItem"
 
-const FItem = (props:any) => <Form.Item {...props} />
 const AddItem = (props:any) :JSX.Element => {
     const dispatch = useDispatch()
+    const [formRef] = useForm()
+
     return (
     <>
-        <Form onFinish={(values : Item) => {
+        <Form form={formRef} onFinish={(values : Item) => {
             console.log("values", values)
             const id = uuidv4()
             dispatch(itemsActions.add({...values, id}))
+            formRef.resetFields()
         }}>
             <FItem name="title"  label="title">
               <Input />

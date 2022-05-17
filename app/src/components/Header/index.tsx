@@ -1,14 +1,12 @@
+import { Space } from "antd"
 import { Link } from "react-router-dom"
 
 const Header = (props:any) => {
     return (
-    <div>
-        <h1>Home</h1>
-        <nav>
+    <Space>
           <Link to="/add">Add</Link>
           <Link to="/list">List</Link>
-        </nav>
-    </div>
+    </Space>
     )
 } 
 export default Header

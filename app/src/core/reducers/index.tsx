@@ -19,10 +19,18 @@ const itemsReducer = (state : ItemState = initialState, action:Action<Payloads>)
                 items : [...itemsDB, action.payload as Item]
             }
         case "DELETE_ITEM":
-            const newItemList = state.items.filter((item) => item.id !== (action.payload as Item).id)
             return {
                 ...state,
-                items : newItemList
+                items : state.items.filter((item) => item.id !== (action.payload as Item).id)
+            }
+        case "MODIFY_ITEM":
+            return {
+                ...state,
+                items : state.items.map((item) => {
+                    if (item.id === (action.payload as Item).id)
+                        return action.payload
+                    else return item
+                    })
             }
         default : 
             return state
