@@ -16,7 +16,7 @@ const itemsReducer = (state : ItemState = initialState, action:Action<Payloads>)
         case "ADD_ITEM":
             return {
                 ...state,
-                items : [...itemsDB, action.payload as Item]
+                items : [...state.items, action.payload as Item]
             }
         case "DELETE_ITEM":
             return {
