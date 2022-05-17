@@ -11,7 +11,6 @@ const initialState : ItemState = {
 }
 type Payloads = Item | Item[]
 const itemsReducer = (state : ItemState = initialState, action:Action<Payloads>) => {
-    console.log("State", state, action)
     switch (action.type){
         case "ADD_ITEM":
             return {

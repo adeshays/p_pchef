@@ -11,9 +11,7 @@ const ModifyItem = (props:any) => {
     const dispatch = useDispatch()
     const [formRef] = useForm()
     const item : Item | undefined = useSelector(({items}: {items: ItemState}) => 
-        {
-            console.log('items', items.items, id)
-            return items.items.find((item) => item.id === id)}
+        items.items.find((item) => item.id === id)
     )
     if (!item) return <> Item unreachable</>
     return (   

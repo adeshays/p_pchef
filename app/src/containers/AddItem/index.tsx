@@ -13,7 +13,6 @@ const AddItem = (props:any) :JSX.Element => {
     return (
     <>
         <Form form={formRef} onFinish={(values : Item) => {
-            console.log("values", values)
             const id = uuidv4()
             dispatch(itemsActions.add({...values, id}))
             formRef.resetFields()
