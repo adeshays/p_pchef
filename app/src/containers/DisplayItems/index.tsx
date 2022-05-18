@@ -8,7 +8,7 @@ import { title } from "process"
 const Item = ({item , del } : {item : ItemInterface, del : (item: ItemInterface) => void}) => {
     return <Card 
     title={item.title} 
-    style={{width: "200px"}}
+    style={{width: "400px"}}
     extra={
     <Link to={`/item/${item.id}`}> Modify
     </Link>
