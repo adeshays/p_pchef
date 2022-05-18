@@ -7,20 +7,22 @@ import { useForm } from "antd/lib/form/Form"
 import { FItem } from "../../components/FormItem"
 import { Link } from "react-router-dom"
 import TextArea from "antd/lib/input/TextArea"
+import { useState } from "react"
 
 const AddItem = (props:any) :JSX.Element => {
     const dispatch = useDispatch()
     const [formRef] = useForm()
-
+    const [titleBack, setTitleBack ] = useState("Cancel")
     return (
         <Card style={{width: "400px"}} title={"Add an item"} extra={
-            <Link to={`/list`}> Cancel
+            <Link to={`/list`}> {titleBack}
             </Link>
             }>
         <Form layout="vertical" form={formRef} onFinish={(values : Item) => {
             const id = uuidv4()
             dispatch(itemsActions.add({...values, id}))
             formRef.resetFields()
+            setTitleBack("Back")
         }}>
             <FItem rules={[{ required: true}]} name="title"  label="title">
               <Input />

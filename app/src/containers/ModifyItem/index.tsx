@@ -1,6 +1,7 @@
 import { Button, Card, Form, Input } from "antd"
 import { useForm } from "antd/lib/form/Form"
 import TextArea from "antd/lib/input/TextArea"
+import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useParams } from "react-router-dom"
 import { FItem } from "../../components/FormItem"
@@ -11,17 +12,20 @@ const ModifyItem = (props:any) => {
     const {id} = useParams();
     const dispatch = useDispatch()
     const [formRef] = useForm()
+    const [titleBack, setTitleBack ] = useState("Cancel")
+
     const item : Item | undefined = useSelector(({items}: {items: ItemState}) => 
         items.items.find((item) => item.id === id)
     )
     if (!item) return <> Item unreachable</>
     return (   
         <Card style={{width: "400px"}} title={"Modify " + item.id} extra={
-            <Link to={`/list`}> Cancel
+            <Link to={`/list`}> {titleBack}
             </Link>
             }>
     <Form layout="vertical" form={formRef} initialValues={item} onFinish={(values : Item) => {
         dispatch(itemsActions.modify({...item, ...values}))
+        setTitleBack("Back")
     }}>
         <FItem rules={[{ required: true}]} name="title"  label="title">
           <Input />
