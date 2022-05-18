@@ -1,35 +1,35 @@
-import { Button } from "antd"
+import { Button, Card } from "antd"
 import itemsActions from "../../core/reducers/actions"
 import { useSelector, useDispatch } from "react-redux"
 import { Item as ItemInterface, ItemState } from "../../types"
 import { Link } from "react-router-dom"
+import { title } from "process"
 
-const Item = ({item } : {item : ItemInterface}) => {
-    return <>
-        <h1>{item.title}</h1> 
-        ({item.id})
-        <p>{item.description}</p>
-    </>
+const Item = ({item , del } : {item : ItemInterface, del : (item: ItemInterface) => void}) => {
+    return <Card 
+    title={item.title} 
+    style={{width: "200px"}}
+    extra={
+    <Link to={`/item/${item.id}`}> Modify
+    </Link>
+    } >
+    <p>{item.description}</p>
+    <Button danger onClick={ 
+        () => del(item)
+    }>
+        delete
+    </Button>
+  </Card>
 }
 const DisplayItems = (props : any) => {
     
     const items : ItemInterface[] = useSelector(({items} : {items : ItemState}) => items.items )
     const dispatch = useDispatch()
-    return <>{items && items.map((item,key:number) => 
-    <div key={key}>
-        <Item item={item}/>
-        <Button danger onClick={ 
-            () => {
-                dispatch(itemsActions.delete(item)) 
-            }
-        }>
-            delete
-        </Button>
-        <Link to={`/item/${item.id}`}>
-            Modify
-        </Link>
-    </div>
-    )}</>
+    return <div  className="list-items-wrapper">{items && items.map((item,key:number) => 
+        <div key={key}>
+            <Item item={item} del={(item) => dispatch(itemsActions.delete(item))}/>
+        </div>
+    )}</div>
 }
 
 export default DisplayItems

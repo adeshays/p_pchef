@@ -1,18 +1,23 @@
-import {Button, Form, Input, } from "antd"
+import {Button, Card, Form, Input, } from "antd"
 import { Item } from "../../types"
 import { useDispatch } from "react-redux"
 import itemsActions from "../../core/reducers/actions"
 import { v4 as uuidv4 } from 'uuid'
 import { useForm } from "antd/lib/form/Form"
 import { FItem } from "../../components/FormItem"
+import { Link } from "react-router-dom"
+import TextArea from "antd/lib/input/TextArea"
 
 const AddItem = (props:any) :JSX.Element => {
     const dispatch = useDispatch()
     const [formRef] = useForm()
 
     return (
-    <>
-        <Form form={formRef} onFinish={(values : Item) => {
+        <Card style={{width: "400px"}} title={"Add an item"} extra={
+            <Link to={`/list`}> Cancel
+            </Link>
+            }>
+        <Form layout="vertical" form={formRef} onFinish={(values : Item) => {
             const id = uuidv4()
             dispatch(itemsActions.add({...values, id}))
             formRef.resetFields()
@@ -21,7 +26,7 @@ const AddItem = (props:any) :JSX.Element => {
               <Input />
             </FItem>
             <FItem rules={[{ required: true}]} name="description" label="description">
-              <Input />
+              <TextArea rows={4} />
             </FItem>
             <FItem >
                 <Button htmlType='submit'>
@@ -29,7 +34,7 @@ const AddItem = (props:any) :JSX.Element => {
                 </Button>
             </FItem>
         </Form>
-    </>
+    </Card>
     )
 }
 export default AddItem
